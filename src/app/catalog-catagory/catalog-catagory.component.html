@@ -1,0 +1,301 @@
+<div class="dashboard-con">
+    <div class="nav-con">
+        <form class="input-con">
+            <span class="material-symbols-outlined search-icon">
+                search
+            </span>
+            <input type="text" class="search-input" name="searchTerm" [(ngModel)]="searchData.searchTerm"
+                placeholder="Search">
+        </form>
+        <div class="profile-con">
+            <span class="material-symbols-outlined profile">
+                person
+            </span>
+        </div>
+    </div>
+    <div class="dash-main-con">
+        <div class="slide-con">
+            <ul class="slide-list">
+                <li [class.active-tab]="isActive('/dashboard')" class="slide-items" [routerLink]="['/dashboard']">
+                    <span class="material-symbols-outlined slide-icon">
+                        dashboard
+                    </span>
+                    <p class="slide-text">Dashboard</p>
+                </li>
+                <li [class.active-tab]="isActive('/catalog')" class="slide-items" [routerLink]="['/catalog']">
+                    <span class="material-symbols-outlined slide-icon">
+                        list
+                    </span>
+                    <p class="slide-text">Catalog</p>
+                </li>
+                <li [class.active-tab]="isActive('/orders')" class="slide-items" [routerLink]="['/order']">
+                    <span class="material-symbols-outlined slide-icon">
+                        group
+                    </span>
+                    <p class="slide-text">Order</p>
+                </li>
+                <li [class.active-tab]="isActive('/reporting')" class="slide-items" [routerLink]="['/reporting']">
+                    <span class="material-symbols-outlined slide-icon">
+                        report
+                    </span>
+                    <p class="slide-text">Reporting</p>
+                </li>
+                <li [class.active-tab]="isActive('/settings')" class="slide-items" [routerLink]="['/setting']">
+                    <span class="material-symbols-outlined slide-icon">
+                        settings
+                    </span>
+                    <p class="slide-text">Settings</p>
+                </li>
+                <li [class.active-tab]="isActive('/security')" class="slide-items" [routerLink]="['/security']">
+                    <span class="material-symbols-outlined slide-icon">
+                        security
+                    </span>
+                    <p class="slide-text">Security</p>
+                </li>
+                <li [class.active-tab]="isActive('/help')" class="slide-items" [routerLink]="['/help']">
+                    <span class="material-symbols-outlined slide-icon">
+                        help
+                    </span>
+                    <p class="slide-text">Help</p>
+                </li>
+            </ul>
+        </div>
+        <div class="catagory-con">
+           
+            
+            <div class="details-con" >
+                <div class="tabs-add-product-con">
+                    <nav class="navbar-con">
+                        <select class="catagory-tab" [(ngModel)]="tabData.catagoryTab" (change)="onChangeCatagory($event)">
+                            <option class="tab-option" *ngFor="let option of catagoryList" [value]="option.label">{{option.label}}</option>
+                        </select>
+                    </nav>
+                    <button class="add-product-btn" type="button" (click)="addProductBtn()">
+                        <span class="material-symbols-outlined plus-icon">
+                            add
+                        </span>
+                        Add Products
+                    </button>
+                </div>
+            
+                <div>
+                    <div class="product-main-con" *ngIf="productView ; else editProduct">
+                        <div class="filter-con">
+                            <form class="input-filter-con">
+                                <span class="material-symbols-outlined search-icon">
+                                    search
+                                </span>
+                                <input type="text" class="search-input" name="searchProduct"
+                                    [(ngModel)]="searchData.searchProduct" (keydown.enter)="onSearchProduct()" placeholder="Search">
+                            </form>
+                            <button type="button" class="filter-btn">
+                                <span class="material-symbols-outlined filter-icon">
+                                    filter_alt
+                                </span>
+                                <p class="filter">Filter</p>
+                            </button>
+                        </div>
+                        <div class="order-details-con" >
+                            <ul class="order-details-list-name">
+                                <li class="order-list-name image">Image</li>
+                                <li class="order-list-name name">Name</li>
+                                <li class="order-list-name price">Price</li>
+                                <li class="order-list-name retailer-id">Retailer Id</li>
+                                <li class="order-list-name currency">Currency</li>
+                                <li class="order-list-name brand">Brand</li>
+                                <li class="order-list-name brand">Availability</li>
+                                <li class="order-list-name brand">Status</li>
+                                <li class="order-list-name brand">Action</li>
+                                <!-- <li class="order-list">
+                                    <input class="checkbox" type="checkbox" name="order" id="order">
+                                    <p class="order">Order</p>
+                                </li>
+                                <li class="order-list">Image</li>
+                                <li class="order-list">Customer</li>
+                                <li class="order-list">Date</li>
+                                <li class="order-list">Payment</li>
+                                <li class="order-list">Price</li>
+                                <li class="order-list">Stack</li>
+                                <li class="order-list">Order Status</li> -->
+                            </ul>
+                            <hr class="line">
+                            <div class="order-con">
+                                <ul class="order-details-list" *ngFor="let item of catalogProduct">
+                                    <li class="order-list">
+                                        <img class="order-image" [src]="item.image_url" alt={{item.name}}>
+                                        <h3 class="order-name">{{item.name}}</h3>
+                                        <p class="order-price">{{item.price}}</p>
+                                        <p class="order-retailer-id">{{item.retailer_id}}</p>
+                                        <p class="order-currency">{{item.currency}}</p>
+                                        <p class="order-brand">{{item.brand}}</p>
+                                        <p class="order-availability">{{item.availability}}</p>
+                                        <p class="order-status">{{item.status}}</p>
+                                        <div class="more-icon-con">
+                                            <span class="material-symbols-outlined more-icon">
+                                                more_vert
+                                            </span>
+                                            <div class="update-con">
+                                                <button type="button" class="edit-btn"
+                                                    (click)="editCatalogProduct(item.id)">Edit</button>
+                                                <button type="button" class="delete-btn"
+                                                    (click)="deleteCatalogProduct(item.id)">Delete</button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <hr class="list-line">
+                                </ul>
+                            </div>
+            
+                            <div class="pagination-container">
+                                <div class="pagination-btn-con">
+                                    <button class="arrow-btn" (click)="goToPreviousPage()" [disabled]="currentPage === 1">
+                                        <span class="material-symbols-outlined arror-icon">
+                                            arrow_back
+                                        </span> Prev
+                                    </button>
+                                    <span class="pagination-pages">Page {{currentPage}} of {{totalPages}}</span>
+                                    <button class="arrow-btn" (click)="goToNextPage()"
+                                        [disabled]="currentPage === totalPages">Next
+                                        <span class="material-symbols-outlined arror-icon">
+                                            arrow_forward
+                                        </span>
+                                    </button>
+                                </div>
+            
+                            </div>
+                            
+            
+                        </div>
+                       
+                    </div>
+                    <ng-template #editProduct>
+                        <div class="edit-con" *ngFor="let item of catalogProduct">
+                            <div class="product-input-con">
+                                <div class="edit-input-con">
+                                    <label for="imageUrl" class="label">Image Url</label>
+                                    <span class="colon">:</span>
+                                    <input type="text" class="edit-input" name="imageUrl"
+                                        [(ngModel)]="catalogData.imageUrl">
+                                </div>
+                                <div class="edit-input-con">
+                                    <label for="name" class="label">Name </label>
+                                    <span class="colon">:</span>
+                                    <input type="text" class="edit-input" name="name" [(ngModel)]="catalogData.name">
+                                </div>
+                                <div class="edit-input-con">
+                                    <label for="price" class="label">Price</label>
+                                    <span class="colon">:</span>
+                                    <input type="text" class="edit-input" name="price" [(ngModel)]="catalogData.price">
+                                </div>
+                                <div class="edit-input-con">
+                                    <label for="currency" class="label">Currency</label>
+                                    <span class="colon">:</span>
+                                    <input type="text" class="edit-input" name="currency"
+                                        [(ngModel)]="catalogData.currency">
+                                </div>
+                                <div class="edit-input-con">
+                                    <label for="brand" class="label">Brand</label>
+                                    <span class="colon">:</span>
+                                    <input type="text" class="edit-input" name="brand" [(ngModel)]="catalogData.brand">
+                                </div>
+                                <div class="edit-input-con">
+                                    <label for="availability" class="label">Availability</label>
+                                    <span class="colon">:</span>
+                                    <select name="availability" [(ngModel)]="catalogData.available" (change)="onChangeAvailabilityInput($event)"
+                                        class="available-status-input">
+                                        <option *ngFor="let option of availabilityOption" [value]="option.label">
+                                            {{ option.label }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="edit-input-con">
+                                    <label for="status" class="label">Status</label>
+                                    <span class="colon">:</span>
+                                    <select name="currency" [(ngModel)]="catalogData.status" (change)="onChangeStatusInput($event)"
+                                        class="available-status-input">
+                                        <option *ngFor="let option of statusOption" [value]="option.label">
+                                            {{ option.label }}
+                                        </option>
+                                    </select>
+                                </div>
+            
+                            </div>
+                            <div class="update-btn-con">
+                                <button type="button" class="update-btn"
+                                    (click)="updateBtn(item.retailer_id)">Update</button>
+                            </div>
+            
+                        </div>
+            
+                    </ng-template>
+            
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+
+<div class="slide-panel" [class.active]="isSlidePanelVisible">
+    <div class="panel-top-con">
+        <h1 class="add-product">Add New Product</h1>
+        <span class="material-symbols-outlined close-icon" (click)="closePanel()">
+            close
+        </span>
+    </div>
+
+    <form class="add-product-form-con">
+        <label class="label" for="url">Url</label>
+        <input class="input" type="text" id="url" name="url" [(ngModel)]="data.url"
+            placeholder="Enter the Url" required>
+
+        <label class="label" for="itemType">Item_type</label>
+        <input class="input" type="text" id="itemType" name="itemType"
+            [(ngModel)]="data.itemType" placeholder="Enter the Item type" disabled required>
+
+        <label class="label" for="name">Name</label>
+        <input class="input" type="text" id="name" name="name" [(ngModel)]="data.name"
+            placeholder="Enter the Name" required>
+
+        <label class="label" for="price">Price</label>
+        <input class="input" type="number" id="price" name="price" [(ngModel)]="data.price"
+            placeholder="Enter the Price" required>
+
+        <label class="label" for="currency">Currency</label>
+        <select name="currency" [(ngModel)]="data.selectedOption" (change)="onChange($event)"
+            class="input">
+            <option *ngFor="let option of options" [value]="option.label">
+                {{ option.label }}
+            </option>
+        </select>
+
+        <label class="label" for="description">Description</label>
+        <input class="input" type="text" id="description" name="description"
+            [(ngModel)]="data.description" placeholder="Enter the Description" required>
+
+        <label class="label" for="imageUrl">Image_url</label>
+        <input class="input" type="text" id="imageUrl" name="imageUrl"
+            [(ngModel)]="data.imageUrl" placeholder="Enter the Image url" required>
+
+        <label class="label" for="retailerId">Retailer_ID</label>
+        <input class="input" type="text" id="retailerId" name="retailerId"
+            [(ngModel)]="data.retailerId" placeholder="Enter the Retailer ID" required>
+
+        <label class="label" for="gtin">Gtin</label>
+        <input class="input" type="text" id="gtin" name="gtin" [(ngModel)]="data.gtin"
+            placeholder="Enter the Gtin" required>
+
+        <label class="label" for="mpn">Mpn</label>
+        <input class="input" type="text" id="mpn" name="mpn" [(ngModel)]="data.mpn"
+            placeholder="Enter the Mpn" required>
+
+        <label class="label" for="brand">Brand</label>
+        <input class="input" type="text" id="brand" name="brand" [(ngModel)]="data.brand"
+            placeholder="Enter the Brand" required>
+
+        <div class="btn-con">
+            <button type="button" class="cancel-btn" (click)="cancelBtn()">Cancel</button>
+            <button type="button" class="submit-btn" (click)="submitBtn()">Submit</button>
+        </div>
+    </form>
+
+</div>

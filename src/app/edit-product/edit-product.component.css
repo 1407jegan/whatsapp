@@ -1,0 +1,67 @@
+.body {
+    height: 100vh;
+    position: absolute;
+}
+
+
+.menu-con {
+    position: absolute;
+    top: 50%;
+    left: 1000px;
+    overflow: hidden;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.line{
+    position: absolute;
+    height: 2px;
+    width: 90%;
+    background-color: #000;
+    transition: .4s ease;
+}
+
+.top{
+    height: 2px;
+    width: 90%;
+    background-color: #000;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.middle{
+    height: 2px;
+    width: 90%;
+    background-color: #000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.bottom{
+    height: 2px;
+    width: 90%;
+    background-color: #000;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.top-toggle{
+    left: 2px;
+    top: 18px;
+    width: 35px;
+    transform: rotate(45deg);
+} 
+.bottom-toggle{
+    left: 2px;
+    top: 18px;
+    width: 35px;
+    transform: rotate(-45deg);
+} 
+.middle-toggle{
+    left: 100px;
+    top: 24px;
+} 

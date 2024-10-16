@@ -1,0 +1,30 @@
+<div class="login-container">
+    <div class="image-login-form-con">
+      <div class="image-con">
+        <img class="image" src="https://i.ibb.co/8btXzff/amico.png" alt="amico">
+      </div>
+      <div class="login-form-con">
+        <form class="form-con" (ngSubmit)="login()">
+          <h1 class="welcome">Welcome Back</h1>
+          <p class="login-des">Millians of products, just a click away.</p>
+          <div class="form-input-con">
+            <label class="label" for="email">E-mail</label>
+            <div class="input">
+              <input class="user-input" id="email" [(ngModel)]="persion.email" name="email" autocomplete="off" placeholder="Enter the email" required>
+            </div>
+            <label class="label" for="password">Password</label>
+            <div class="input">
+              <input class="user-input" id="password" type="password" [(ngModel)]="persion.password" name="password" placeholder="Enter the password" required>
+            </div>
+          </div>
+          <div class="forget-con">
+            <p class="forget">Forget password</p>
+          </div>
+          <button class="login-btn" type="submit">Login</button>
+          <div class="error" *ngIf="error">{{ error }}</div>
+          <p class="sign-in">Don't have an account?<span>sign Up</span></p>
+        </form>
+       
+      </div>
+    </div>
+  </div>

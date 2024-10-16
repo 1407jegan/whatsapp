@@ -1,0 +1,144 @@
+<main class="dashboard-con">
+    <header class="nav-con">
+        <div class="logo-con"></div>
+        <form class="input-con">
+            <span class="material-symbols-outlined search-icon">
+                search
+            </span>
+            <input type="text" class="search-input" name="searchTerm" [(ngModel)]="searchTerm" placeholder="Search"
+                (keyup.enter)="onSearch()">
+        </form>
+        <div class="profile-logout-con">
+            <div class="profile-con">
+                <span class="material-symbols-outlined profile">
+                    person
+                </span>
+            </div>
+        </div>
+    </header>
+    <section class="dash-main-con">
+
+        <nav class="slide-con">
+            <ul class="slide-list">
+                <li [class.active]="activeSlide === 'dashboard'" (click)="setActiveSlide('dashboard')"
+                    [routerLink]="['/dashboard']" class="slide-items">
+                    <span class="material-symbols-outlined slide-icon">dashboard</span>
+                    <p class="slide-text">Dashboard</p>
+                </li>
+                <li [class.active]="activeSlide === 'catalog'" (click)="setActiveSlide('catalog')"
+                    [routerLink]="['catalog']" class="slide-items">
+                    <span class="material-symbols-outlined slide-icon">list</span>
+                    <p class="slide-text">Catalog</p>
+                </li>
+                <li [class.active]="activeSlide === 'orders'" (click)="setActiveSlide('orders')"
+                    [routerLink]="['orders']" class="slide-items">
+                    <span class="material-symbols-outlined slide-icon">shopping_cart</span>
+                    <p class="slide-text">Orders</p>
+                </li>
+                <li [class.active]="activeSlide === 'reporting'" (click)="setActiveSlide('reporting')"
+                    [routerLink]="['reporting']" class="slide-items">
+                    <span class="material-symbols-outlined slide-icon">report</span>
+                    <p class="slide-text">Reporting</p>
+                </li>
+                <li [class.active]="activeSlide === 'settings'" (click)="setActiveSlide('settings')"
+                    [routerLink]="['settings']" class="slide-items">
+                    <span class="material-symbols-outlined slide-icon">settings</span>
+                    <p class="slide-text">Settings</p>
+                </li>
+                <li [class.active]="activeSlide === 'security'" (click)="setActiveSlide('security')"
+                    [routerLink]="['security']" class="slide-items">
+                    <span class="material-symbols-outlined slide-icon">security</span>
+                    <p class="slide-text">Security</p>
+                </li>
+                <li [class.active]="activeSlide === 'help'" (click)="setActiveSlide('help')" [routerLink]="['help']"
+                    class="slide-items">
+                    <span class="material-symbols-outlined slide-icon">help</span>
+                    <p class="slide-text">Help</p>
+                </li>
+                <div class="logout-con" (click)="logout()">
+                    <button class="logout-btn">
+                        <span class="material-symbols-outlined logout-icon">logout</span>
+                        Logout
+                    </button>
+                </div>
+            </ul>
+        </nav>
+
+        <main class="details-con">
+            <section *ngIf="activeSlide === 'dashboard'" class="dashboard-bg-con">
+                <div class="dashboard-value-con">
+                    <div class="box-con">
+                        <div class="box-title-arrow-con">
+                            <h3 class="title">Total Profit</h3>
+                            <span class="material-symbols-outlined arrow">arrow_forward</span>
+                        </div>
+                        <div class="value-con profit">
+                            <span class="material-symbols-outlined rupees">currency_rupee</span>
+                            <p class="value">1000</p>
+                        </div>
+                    </div>
+                    <div class="box-con">
+                        <div class="box-title-arrow-con">
+                            <h3 class="title">Total Revenue</h3>
+                            <span class="material-symbols-outlined arrow">arrow_forward</span>
+                        </div>
+                        <div class="value-con revenue">
+                            <span class="material-symbols-outlined rupees">currency_rupee</span>
+                            <p class="value">900</p>
+                        </div>
+                    </div>
+                    <div class="box-con">
+                        <div class="box-title-arrow-con">
+                            <h3 class="title">Total Expenses</h3>
+                            <span class="material-symbols-outlined arrow">arrow_forward</span>
+                        </div>
+                        <div class="value-con expenses">
+                            <span class="material-symbols-outlined rupees">currency_rupee</span>
+                            <p class="value">760</p>
+                        </div>
+                    </div>
+                    <div class="box-con">
+                        <div class="box-title-arrow-con">
+                            <h3 class="title">Total Pending</h3>
+                            <span class="material-symbols-outlined arrow">arrow_forward</span>
+                        </div>
+                        <div class="value-con pending">
+                            <span class="material-symbols-outlined rupees">currency_rupee</span>
+                            <p class="value">590</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="date-revenue-con">
+                    <h3 class="date-revenue">{{dateRevenue}} Revenue</h3>
+                    <ul class="date-con">
+                        <li class="date" [class.active-revenue]="activeRevenue === 'day'" (click)="clickRevenue('day')">
+                            Day</li>
+                        <li class="date" [class.active-revenue]="activeRevenue === 'week'"
+                            (click)="clickRevenue('week')">Week</li>
+                        <li class="date" [class.active-revenue]="activeRevenue === 'month'"
+                            (click)="clickRevenue('month')">Month</li>
+                        <li class="date" [class.active-revenue]="activeRevenue === 'year'"
+                            (click)="clickRevenue('year')">Year</li>
+                    </ul>
+                </div>
+                <div class="chart-con">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </section>
+
+            <section [ngClass]="{'show' : showPopup}" class="popup-overlay">
+                <div class="popup">
+                    <h3 class="confirm-logout">Confirm Logout</h3>
+                    <hr class="line">
+                    <p class="confirm-des">Are you sure you want to log out?</p>
+                    <div class="confirm-btn-con">
+                        <button class="cancel" (click)="cancelLogout()">Cancel</button>
+                        <button class="conform" (click)="confirmLogout()">Logout</button>
+                    </div>
+                </div>
+            </section>
+
+            <router-outlet></router-outlet>
+        </main>
+    </section>
+</main>
