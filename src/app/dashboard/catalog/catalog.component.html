@@ -2,7 +2,7 @@
     <section class="details-con">
         <header class="tabs-add-product-con">
             <nav class="navbar-con">
-                <select class="catagory-tab form-select" [(ngModel)]="tabData.catagoryTab" (change)="onChangeCatagory($event)">
+                <select class="form-select catagory-tab" [(ngModel)]="tabData.catagoryTab" (change)="onChangeCatagory($event)">
                     <option [ngValue]="null" disabled>Select an option</option>
                     <option class="tab-option" *ngFor="let option of catagoryList" [value]="option.value">
                         {{option.label}}</option>

@@ -328,7 +328,7 @@
   .popup {
     background-color: rgb(245, 250, 249);
     padding: 20px;
-    min-width: 450px;
+    min-width: 400px;
     height: 250px;
     border-radius: 8px;
     display: flex;
@@ -353,7 +353,7 @@
   .conform-logout{
     color: rgb(64, 131, 207);
     font-weight: 400;
-    margin-left: 20px;  
+    margin-left: 30px;  
     font-size: 35;
   }
   .line{
@@ -364,7 +364,7 @@
   .conform-des{
     font-size: 27px;
     color: rgb(64, 131, 207);
-    margin: 10px 20px;
+    margin: 10px 30px;
     font-weight: 500;
   }
   .conform-btn-con{

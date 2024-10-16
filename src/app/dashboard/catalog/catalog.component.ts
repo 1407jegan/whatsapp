@@ -16,8 +16,6 @@ export class CatalogComponent implements OnInit {
   private productService = inject(ProductService);
   private router = inject(Router);
 
-  
-
   catalogProduct: any[] = [];
   filterProduct: any[] = [];
   editCatalog: any[] = [];
@@ -29,15 +27,14 @@ export class CatalogComponent implements OnInit {
   productView = true;
   isLoading = false;
   prevClass = 'is-disable'
-  nextClass = ''
-  nextArrow = '';
+  nextClass = 'next-disable'
+  nextArrow = 'is-disable';
   status = '';
 
   searchData = {
     searchTerm: "",
     searchProduct: "",
   };
-
   pagination = {
     next : '',
     prev : ''
@@ -52,17 +49,14 @@ export class CatalogComponent implements OnInit {
     { value: "usd", label: "USD" },
     { value: "eur", label: "EUR" },
   ];
-
   availabilityOption = [
     { value: "in_stack", label: "in_stock" },
     { value: "out_of_stack", label: "out_of_stock" },
   ];
-
   statusOption = [
     { value: "active", label: "Active" },
     { value: "archive", label: "Archived" },
   ];
-
   catagoryList = [
     { value: "alltype", label: "AllType" },
     { value: "cake1", label: "CupCake" },
@@ -156,6 +150,7 @@ export class CatalogComponent implements OnInit {
     this.productService.getCatalogSearchProduct(inputValue).subscribe({
       next: (res:any) => {
         console.log(res)
+        this.catalogProduct = res.results.data
       }
     })
     //console.log(inputValue);
@@ -224,10 +219,9 @@ export class CatalogComponent implements OnInit {
 
   deleteCatalogProduct(id: number): void {
     console.log(id)
-    this.productService.deleteDashboardProduct(id).subscribe(() => {
-      this.catalogProduct.filter((each) => {
-        each.id !== id;
-      });
+    this.productService.deleteDashboardProduct(id).subscribe((res) => {
+      console.log(res)
+      
     });
     //window.location.reload();
   }
@@ -274,7 +268,7 @@ export class CatalogComponent implements OnInit {
       productData.map((each) => {
         this.catalogProduct = each.results.data;
         this.filterProduct = this.catalogProduct
-        console.log(this.catalogProduct);
+        //console.log(this.catalogProduct);
       });
       if(this.pagination.next) {
         this.nextClass = 'next-page'
@@ -283,8 +277,6 @@ export class CatalogComponent implements OnInit {
         this.nextClass = 'next-disable'
         this.nextArrow = 'is-disable'
       }
-      
-     
       this.isLoading = false;
       
     });
